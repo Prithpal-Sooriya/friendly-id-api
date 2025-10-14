@@ -1,0 +1,1 @@
+export { generateId, isMaxIdLength } from './mm-friendly-id'
