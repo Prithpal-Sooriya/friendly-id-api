@@ -4,7 +4,7 @@ import { handleErrorResponses } from "./handlers/handle-error-responses";
 
 // TODO:
 // - Add authentication middleware (mostly done, need to add JWT verification)
-// - Add tests
+// - Add tests (auth middleware tests + server tests)
 
 const server = Bun.serve({
     port: 3000,
