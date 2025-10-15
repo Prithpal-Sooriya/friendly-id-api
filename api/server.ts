@@ -1,23 +1,25 @@
-import { generateId } from "../mm-friendly-id";
-// import { requireAuth } from "./middleware/auth";
+import { handleGenerateId } from "./handlers/handle-generate-id";
+import { assertAuthRequest } from "./middleware/auth";
+import { handleErrorResponses } from "./handlers/handle-error-responses";
 
 // TODO:
-// - Add handler to generate ID
-// - Add authentication middleware
+// - Add authentication middleware (mostly done, need to add JWT verification)
 // - Add tests
 
 const server = Bun.serve({
     port: 3000,
-    async fetch(req) {
-        const url = new URL(req.url);
-
-        if (url.pathname === "/api/generate-id" && req.method === "POST") {
-            // const subOrRes = await requireAuth(req);
-            // if (typeof subOrRes !== "string") return subOrRes;
-            // return handleGenerateId(req, subOrRes);
+    async fetch(request) {
+        try {
+            const url = new URL(request.url);
+            if (url.pathname === "/api/generate-id" && request.method === "POST") {
+                const sub = assertAuthRequest(request)
+                return handleGenerateId(sub)
+            }
+            return new Response("Not found", { status: 404 });
+        } catch (err) {
+            return handleErrorResponses(err)
         }
 
-        return new Response("Not found", { status: 404 });
     },
 });
 
