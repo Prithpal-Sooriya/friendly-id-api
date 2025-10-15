@@ -1,7 +1,7 @@
 import { generateId } from "../../mm-friendly-id";
 import { insertId, TTL_CACHE_MS } from "../db/cache";
 
-export async function handleGenerateId(req: Request, userSub: string) {
+export async function handleGenerateId(userSub: string) {
     const id = generateId();
     insertId({ userSub, id })
     return new Response(
