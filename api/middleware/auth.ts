@@ -1,15 +1,4 @@
-export const AuthenticationErrorStatusCodes = {
-  'Unauthorized': 401
-} as const
-
-export class AuthenticationError extends Error {
-  readonly code: keyof typeof AuthenticationErrorStatusCodes;
-  constructor(code: keyof typeof AuthenticationErrorStatusCodes, opts?: ErrorOptions) {
-    super(code, opts);
-    this.code = code;
-  }
-}
-
+import { AuthenticationError } from "../errors/AuthenticationError";
 
 export function assertAuthRequest(request: Request) {
   const authHeader = request.headers.get('authorization');
