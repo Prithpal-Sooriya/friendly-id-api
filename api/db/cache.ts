@@ -1,6 +1,7 @@
 import { Database } from "bun:sqlite";
 
-export const db = new Database("cache.db", { create: true });
+// In Memory Cache DB
+export const db = new Database();
 
 // Create table if not exists
 db.run(`
