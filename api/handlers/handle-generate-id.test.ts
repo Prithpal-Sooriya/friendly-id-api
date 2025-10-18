@@ -21,7 +21,8 @@ describe(handleGenerateId.name, () => {
             userSub: MOCK_SUB,
             id: expect.any(String)
         })
-        expect(result.status).toBe(200)
+        expect(result.id).toBeDefined()
+        expect(result.expiresAt).toBeDefined()
     })
 
     it('throws error if fails to insert if ID is already being used', () => {
@@ -51,7 +52,7 @@ describe(handleGenerateId.name, () => {
 
         // Insert new user, that is using same Id which passed on 3rd retry
         const result = handleGenerateId('New-User-Entering-Same-Id')
-        expect(result.status).toBe(200)
+        expect(result.id).toBeDefined()
         expect(mocks.mockGenerateId).toHaveBeenCalledTimes(3)
     })
 

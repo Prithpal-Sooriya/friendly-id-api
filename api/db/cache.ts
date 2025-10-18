@@ -17,13 +17,17 @@ export function cleanExpired() {
 }
 
 export const TTL_CACHE_MS = 60 * 60 * 1000; // 1 Hour TTL
+
 export function insertId(props: { userSub: string, id: string }) {
     const now = Date.now();
+    const expiresAt = now + TTL_CACHE_MS
     db.run(`
         INSERT INTO id_cache (user_sub, id, expires_at)
         VALUES (?, ?, ?)
         ON CONFLICT (user_sub) DO UPDATE SET id = excluded.id
-    `, [props.userSub, props.id, now + TTL_CACHE_MS]);
+    `, [props.userSub, props.id, expiresAt]);
+
+    return { id: props.id, expiresAt }
 }
 
 export const INTERVAL_MS = 5 * 60 * 1000; // 5 Minute Interval Expired TTL Cleanup

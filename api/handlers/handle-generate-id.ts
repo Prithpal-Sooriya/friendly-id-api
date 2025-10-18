@@ -6,20 +6,16 @@ export function handleGenerateId(userSub: string) {
     const exeuteInsert = () => {
         try {
             const id = generateId();
-            insertId({ userSub, id })
-            return id;
+            return insertId({ userSub, id })
         } catch {
             return null;
         }
     }
 
-    const successId = exeuteInsert() || exeuteInsert() || exeuteInsert()
+    const result = exeuteInsert() || exeuteInsert() || exeuteInsert()
 
-    if (successId) {
-        return new Response(
-            JSON.stringify({ id: successId, expires_in: TTL_CACHE_MS / 1000 }),
-            { headers: { "Content-Type": "application/json" } }
-        );
+    if (result && result.id && result.expiresAt) {
+        return { id: result.id, expiresAt: result.expiresAt }
     }
 
     throw new GenerateIdError('ID_Collision')

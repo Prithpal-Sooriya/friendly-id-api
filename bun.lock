@@ -6,13 +6,14 @@
       "dependencies": {
         "@elysiajs/bearer": "^1.4.1",
         "@elysiajs/jwt": "^1.4.0",
+        "@elysiajs/openapi": "^1.4.11",
         "elysia": "^1.4.12",
       },
       "devDependencies": {
         "@types/bun": "latest",
       },
       "peerDependencies": {
-        "typescript": "^5",
+        "typescript": "^5.9.3",
       },
     },
   },
@@ -22,6 +23,8 @@
     "@elysiajs/bearer": ["@elysiajs/bearer@1.4.1", "", { "peerDependencies": { "elysia": ">= 1.4.0" } }, "sha512-vLLSMEVsLKp/8p/eoAbXZdXKRs1jEQO4OkrfcKM2x8FkiK2aKNcFgLID45bH+6rYbCf8Ihg0NKw59zxMLl43OQ=="],
 
     "@elysiajs/jwt": ["@elysiajs/jwt@1.4.0", "", { "dependencies": { "jose": "^6.0.11" }, "peerDependencies": { "elysia": ">= 1.4.0" } }, "sha512-Z0PvZhQxdDeKZ8HslXzDoXXD83NKExNPmoiAPki3nI2Xvh5wtUrBH+zWOD17yP14IbRo8fxGj3L25MRCAPsgPA=="],
+
+    "@elysiajs/openapi": ["@elysiajs/openapi@1.4.11", "", { "peerDependencies": { "elysia": ">= 1.4.0" } }, "sha512-d75bMxYJpN6qSDi/z9L1S7SLk1S/8Px+cTb3W2lrYzU8uQ5E0kXdy1oOMJEfTyVsz3OA19NP9KNxE7ztSbLBLg=="],
 
     "@sinclair/typebox": ["@sinclair/typebox@0.34.41", "", {}, "sha512-6gS8pZzSXdyRHTIqoqSVknxolr1kzfy4/CeDnrzsVz8TTIWUbOBr6gnzOmTYJ3eXQNh4IYHIGi5aIL7sOZ2G/g=="],
 
