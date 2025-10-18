@@ -1,26 +1,10 @@
+import { Elysia } from 'elysia'
+import { errorPlugin } from './plugins/error-plugin';
+import { authPlugin } from "./plugins/auth-plugin";
 import { handleGenerateId } from "./handlers/handle-generate-id";
-import { assertAuthRequest } from "./middleware/auth";
-import { handleErrorResponses } from "./handlers/handle-error-responses";
 
-// TODO:
-// - Add authentication middleware (mostly done, need to add JWT verification)
-// - Add tests (auth middleware tests + server tests)
-
-const server = Bun.serve({
-    port: 3000,
-    async fetch(request) {
-        try {
-            const url = new URL(request.url);
-            if (url.pathname === "/api/generate-id" && request.method === "POST") {
-                const sub = assertAuthRequest(request)
-                return handleGenerateId(sub)
-            }
-            return new Response("Not found", { status: 404 });
-        } catch (err) {
-            return handleErrorResponses(err)
-        }
-
-    },
-});
-
-console.log(`🚀 Server running on http://localhost:${server.port}`);
+new Elysia()
+    .use(errorPlugin)
+    .use(authPlugin({ JWT_SECRET: 'JWT_SECRET' }))
+    .get('/api/v1/generate-id', async ({ user }) => handleGenerateId(user.sub))
+    .listen(3000)
